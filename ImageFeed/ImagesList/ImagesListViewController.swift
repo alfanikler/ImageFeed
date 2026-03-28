@@ -29,13 +29,13 @@ final class ImagesListViewController: UIViewController {
             return
         }
         
-        let viewModel = ImagesListCellViewModel(
+        let settings = ImagesListCellSettings(
             image: image,
             isLiked: indexPath.row % 2 == 0,
             date: Date()
         )
         
-        cell.configure(viewModel: viewModel)
+        cell.configure(with: settings)
     }
 
     private func configureTableView() {

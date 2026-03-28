@@ -30,10 +30,10 @@ final class ImagesListCell: UITableViewCell {
         updateGradientFrame(height: 30)
     }
     
-    func configure(viewModel: ImagesListCellViewModel) {
-        photoImageView.image = viewModel.image
-        dateTextView.text = viewModel.dateString
-        likeButtonView.imageView?.image = viewModel.isLiked ? .active : .noActive
+    func configure(with settings: ImagesListCellSettings) {
+        photoImageView.image = settings.image
+        dateTextView.text = settings.dateString
+        likeButtonView.imageView?.image = settings.isLiked ? .active : .noActive
     }
 
 }
