@@ -33,7 +33,7 @@ final class ImagesListCell: UITableViewCell {
     func configure(with settings: ImagesListCellSettings) {
         photoImageView.image = settings.image
         dateTextView.text = settings.dateString
-        likeButtonView.imageView?.image = settings.isLiked ? .active : .noActive
+        likeButtonView.imageView?.image = settings.isLiked ? .likeButtonOn : .likeButtonOff
     }
 
 }
