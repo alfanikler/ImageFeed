@@ -22,20 +22,28 @@ final class ImagesListViewController: UIViewController {
     }
     
     private func configureCell(for cell: ImagesListCell, with indexPath: IndexPath) {
-        guard
-            let photoName = photosName[safe: indexPath.row],
-            let image = UIImage(named: photoName)
-        else {
+        guard let photo = getPhoto(index: indexPath.row) else {
             return
         }
         
         let settings = ImagesListCellSettings(
-            image: image,
+            image: photo,
             isLiked: indexPath.row % 2 == 0,
             date: Date()
         )
         
         cell.configure(with: settings)
+    }
+    
+    private func getPhoto(index: Int) -> UIImage? {
+        guard
+            let photoName = photosName[safe: index],
+            let photo = UIImage(named: photoName)
+        else {
+            return nil
+        }
+        
+        return photo
     }
 
     private func configureTableView() {
@@ -76,10 +84,7 @@ extension ImagesListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard
-            let photoName = photosName[safe: indexPath.row],
-            let image = UIImage(named: photoName)
-        else {
+        guard let photo = getPhoto(index: indexPath.row) else {
             return 200
         }
         
@@ -88,11 +93,11 @@ extension ImagesListViewController: UITableViewDelegate {
             h: ImagesListCell.cellMargins.h * 2,
         )
 
-        let imageWidth = image.size.width
-        let imageHeight = image.size.height
-        let imageViewWidth = tableView.bounds.width - margins.h
+        let photoWidth = photo.size.width
+        let photoHeight = photo.size.height
+        let viewWidth = tableView.bounds.width - margins.h
         
-        return imageHeight / imageWidth * imageViewWidth + margins.v
+        return photoHeight / photoWidth * viewWidth + margins.v
     }
 
 }
