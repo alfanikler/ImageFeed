@@ -22,7 +22,7 @@ final class ImagesListViewController: UIViewController {
     }
     
     private func configureCell(for cell: ImagesListCell, with indexPath: IndexPath) {
-        guard let photo = getPhoto(index: indexPath.row) else {
+        guard let photo = getPhoto(by: indexPath.row) else {
             return
         }
         
@@ -35,7 +35,7 @@ final class ImagesListViewController: UIViewController {
         cell.configure(with: settings)
     }
     
-    private func getPhoto(index: Int) -> UIImage? {
+    private func getPhoto(by index: Int) -> UIImage? {
         guard
             let photoName = photosName[safe: index],
             let photo = UIImage(named: photoName)
@@ -84,7 +84,7 @@ extension ImagesListViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let photo = getPhoto(index: indexPath.row) else {
+        guard let photo = getPhoto(by: indexPath.row) else {
             return 200
         }
         
