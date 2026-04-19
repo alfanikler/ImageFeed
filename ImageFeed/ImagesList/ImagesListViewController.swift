@@ -13,6 +13,8 @@ final class ImagesListViewController: UIViewController {
 
     @IBOutlet private var tableView: UITableView!
     
+    private let showSingleImageSegueIdentifier = "ShowSingleImage"
+    
     private let photosName: [String] = (0..<20).map { "\($0)" }
     
     override func viewDidLoad() {
@@ -80,7 +82,7 @@ extension ImagesListViewController: UITableViewDataSource {
 extension ImagesListViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        performSegue(withIdentifier: showSingleImageSegueIdentifier, sender: indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -100,4 +102,24 @@ extension ImagesListViewController: UITableViewDelegate {
         return photoHeight / photoWidth * viewWidth + margins.v
     }
 
+}
+
+// MARK: - Preparing for segues
+
+extension ImagesListViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == showSingleImageSegueIdentifier {
+            guard
+                let viewController = segue.destination as? SingleImageViewController,
+                let indexPath = sender as? IndexPath
+            else {
+                assertionFailure("Invalid segue destination")
+                return
+            }
+
+            viewController.image = getPhoto(by: indexPath.row)
+        } else {
+            super.prepare(for: segue, sender: sender)
+        }
+    }
 }
