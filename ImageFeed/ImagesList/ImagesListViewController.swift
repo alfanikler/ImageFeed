@@ -13,6 +13,8 @@ final class ImagesListViewController: UIViewController {
 
     @IBOutlet private var tableView: UITableView!
     
+    private let showSingleImageSegueIdentifier = "ShowSingleImage"
+    
     private let photosName: [String] = (0..<20).map { "\($0)" }
     
     override func viewDidLoad() {
@@ -22,20 +24,28 @@ final class ImagesListViewController: UIViewController {
     }
     
     private func configureCell(for cell: ImagesListCell, with indexPath: IndexPath) {
-        guard
-            let photoName = photosName[safe: indexPath.row],
-            let image = UIImage(named: photoName)
-        else {
+        guard let photo = getPhoto(by: indexPath.row) else {
             return
         }
         
         let settings = ImagesListCellSettings(
-            image: image,
+            image: photo,
             isLiked: indexPath.row % 2 == 0,
             date: Date()
         )
         
         cell.configure(with: settings)
+    }
+    
+    private func getPhoto(by index: Int) -> UIImage? {
+        guard
+            let photoName = photosName[safe: index],
+            let photo = UIImage(named: photoName)
+        else {
+            return nil
+        }
+        
+        return photo
     }
 
     private func configureTableView() {
@@ -72,14 +82,11 @@ extension ImagesListViewController: UITableViewDataSource {
 extension ImagesListViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        performSegue(withIdentifier: showSingleImageSegueIdentifier, sender: indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard
-            let photoName = photosName[safe: indexPath.row],
-            let image = UIImage(named: photoName)
-        else {
+        guard let photo = getPhoto(by: indexPath.row) else {
             return 200
         }
         
@@ -88,11 +95,31 @@ extension ImagesListViewController: UITableViewDelegate {
             h: ImagesListCell.cellMargins.h * 2,
         )
 
-        let imageWidth = image.size.width
-        let imageHeight = image.size.height
-        let imageViewWidth = tableView.bounds.width - margins.h
+        let photoWidth = photo.size.width
+        let photoHeight = photo.size.height
+        let viewWidth = tableView.bounds.width - margins.h
         
-        return imageHeight / imageWidth * imageViewWidth + margins.v
+        return photoHeight / photoWidth * viewWidth + margins.v
     }
 
+}
+
+// MARK: - Preparing for segues
+
+extension ImagesListViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == showSingleImageSegueIdentifier {
+            guard
+                let viewController = segue.destination as? SingleImageViewController,
+                let indexPath = sender as? IndexPath
+            else {
+                assertionFailure("Invalid segue destination")
+                return
+            }
+
+            viewController.image = getPhoto(by: indexPath.row)
+        } else {
+            super.prepare(for: segue, sender: sender)
+        }
+    }
 }

@@ -31,9 +31,13 @@ final class ImagesListCell: UITableViewCell {
     }
     
     func configure(with settings: ImagesListCellSettings) {
+        let image: UIImage = settings.isLiked
+            ? .likeButtonOn
+            : .likeButtonOff
+
         photoImageView.image = settings.image
         dateTextView.text = settings.dateString
-        likeButtonView.imageView?.image = settings.isLiked ? .active : .noActive
+        likeButtonView.setImage(image, for: .normal)
     }
 
 }
