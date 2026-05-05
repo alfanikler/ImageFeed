@@ -8,13 +8,26 @@
 import UIKit
 
 final class ProfileViewController: UIViewController {
+    private let baseFontSize: CGFloat = 13
     
-    private var userDescriptionLabel: UILabel!
-    private var userIdLabel: UILabel!
-    private var userNameLabel: UILabel!
+    private lazy var userDescriptionLabel = createLabel(
+        withText: "Hello, World!",
+        font: UIFont.systemFont(ofSize: baseFontSize, weight: .regular)
+    )
 
-    private var logoutButton: UIButton!
-    private var userAvatarImageView: UIImageView!
+    private lazy var userIdLabel = createLabel(
+        withText: "@ekaterina_nov",
+        font: UIFont.systemFont(ofSize: baseFontSize, weight: .regular),
+        color: .ypGray
+    )
+
+    private lazy var userNameLabel = createLabel(
+        withText: "Екатерина Новикова",
+        font: UIFont.systemFont(ofSize: 23, weight: .bold)
+    )
+
+    private lazy var logoutButton = createLogoutButton()
+    private lazy var userAvatarImageView = createUserAvatarImageView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,27 +46,6 @@ final class ProfileViewController: UIViewController {
     }
     
     private func setupSubviews() {
-        let baseFontSize: CGFloat = 13
-        let bigFontSize: CGFloat = 23
-        
-        userAvatarImageView = createUserAvatarImageView()
-
-        userNameLabel = createLabel(
-            withText: "Екатерина Новикова",
-            font: UIFont.systemFont(ofSize: bigFontSize, weight: .bold)
-        )
-        userIdLabel = createLabel(
-            withText: "@ekaterina_nov",
-            font: UIFont.systemFont(ofSize: baseFontSize, weight: .regular),
-            color: .ypGray
-        )
-        userDescriptionLabel = createLabel(
-            withText: "Hello, World!",
-            font: UIFont.systemFont(ofSize: baseFontSize, weight: .regular)
-        )
-
-        logoutButton = createLogoutButton()
-        
         view.addSubview(userAvatarImageView)
         view.addSubview(userDescriptionLabel)
         view.addSubview(userIdLabel)

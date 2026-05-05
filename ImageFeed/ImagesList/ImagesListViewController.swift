@@ -17,6 +17,8 @@ final class ImagesListViewController: UIViewController {
     
     private let photosName: [String] = (0..<20).map { "\($0)" }
     
+    private let today = Date()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,7 +33,7 @@ final class ImagesListViewController: UIViewController {
         let settings = ImagesListCellSettings(
             image: photo,
             isLiked: indexPath.row % 2 == 0,
-            date: Date()
+            date: today
         )
         
         cell.configure(with: settings)
@@ -49,7 +51,6 @@ final class ImagesListViewController: UIViewController {
     }
 
     private func configureTableView() {
-        tableView.rowHeight = 200
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
     }
 }
