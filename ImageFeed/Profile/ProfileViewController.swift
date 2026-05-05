@@ -108,26 +108,56 @@ final class ProfileViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             // userAvatarImageView
-            userAvatarImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: topInset),
-            userAvatarImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: hInset),
-            userAvatarImageView.widthAnchor.constraint(equalToConstant: avatarSize),
-            userAvatarImageView.heightAnchor.constraint(equalToConstant: avatarSize),
+            userAvatarImageView.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor,
+                constant: topInset
+            ),
+            userAvatarImageView.leadingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                constant: hInset
+            ),
+            userAvatarImageView.widthAnchor.constraint(
+                equalToConstant: avatarSize
+            ),
+            userAvatarImageView.heightAnchor.constraint(
+                equalToConstant: avatarSize
+            ),
 
             // logoutButton
-            logoutButton.centerYAnchor.constraint(equalTo: userAvatarImageView.centerYAnchor),
-            logoutButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -hInset),
+            logoutButton.centerYAnchor.constraint(
+                equalTo: userAvatarImageView.centerYAnchor
+            ),
+            logoutButton.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                constant: -hInset
+            ),
 
             // userNameLabel
-            userNameLabel.leadingAnchor.constraint(equalTo: userAvatarImageView.leadingAnchor),
-            userNameLabel.topAnchor.constraint(equalTo: userAvatarImageView.bottomAnchor, constant: labelSpacing),
+            userNameLabel.leadingAnchor.constraint(
+                equalTo: userAvatarImageView.leadingAnchor
+            ),
+            userNameLabel.topAnchor.constraint(
+                equalTo: userAvatarImageView.bottomAnchor,
+                constant: labelSpacing
+            ),
 
             // userIdLabel
-            userIdLabel.leadingAnchor.constraint(equalTo: userAvatarImageView.leadingAnchor),
-            userIdLabel.topAnchor.constraint(equalTo: userNameLabel.bottomAnchor, constant: labelSpacing),
+            userIdLabel.leadingAnchor.constraint(
+                equalTo: userAvatarImageView.leadingAnchor
+            ),
+            userIdLabel.topAnchor.constraint(
+                equalTo: userNameLabel.bottomAnchor,
+                constant: labelSpacing
+            ),
 
             // userDescriptionLabel
-            userDescriptionLabel.leadingAnchor.constraint(equalTo: userAvatarImageView.leadingAnchor),
-            userDescriptionLabel.topAnchor.constraint(equalTo: userIdLabel.bottomAnchor, constant: labelSpacing)
+            userDescriptionLabel.leadingAnchor.constraint(
+                equalTo: userAvatarImageView.leadingAnchor
+            ),
+            userDescriptionLabel.topAnchor.constraint(
+                equalTo: userIdLabel.bottomAnchor,
+                constant: labelSpacing
+            )
             
         ])
     }
